@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>list</title>
+  <link rel="stylesheet" href="/css/list.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="logout">
+      <form action="/logout" method="post">
+        <button>Log out</button>
+      </form>
+    </div>
+    <div class="wrapper-header">
+      <span>记账本</span>
+      <a href="/account/create">ADD</a>
+    </div>
+    <ul class="list-items">
+      <% accounts.forEach(item => { %>
+        <li class="item">
+          <div class="item-header <%= item.type === '1' ? 'item-header-outcome' : 'item-header-income' %>"><%= moment(item.time).format('YYYY-MM-DD') %></div>
+          <div class="item-body">
+            <span class="remarks"><%= item.remarks %></span>
+            <span class="tags <%= item.type === '1' ? 'tags-outcome' : 'tags-income' %>"><%= item.type === '1' ? '支出' : '收入' %></span>
+            <span class="details"><%= item.account %>元</span>
+            <span class="remove">
+              <a href="/account/<%= item._id %>">X</a>
+            </span>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+</html>
